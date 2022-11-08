@@ -5,7 +5,7 @@ libs=-lNatNet -lGLU -lGL -lglut -lstdc++ -lm -lglfw -lGLEW -ldl -lpthread #-lHL 
 all:sampleClient
 
 sampleClient: 
-	g++ SampleClient.cpp $(include) $(libpath) $(libs) -o sampleClient
+	g++ sampleClient.cpp $(include) $(libpath) $(libs) -o sampleClient
 
 .PHONY: clean
 clean:
