@@ -68,7 +68,7 @@ void drawText(char*, float, float);
 void display();
 void resize(int, int);
 
-float px, py, pz;
+float px, py, pz, pxv, pyv, pzv;
 int coor_accuracy = 6;
 int move = 0;
 const int rbPtsNum = 6;
@@ -601,6 +601,10 @@ void NATNET_CALLCONV DataHandler(sFrameOfMocapData* data, void* pUserData) {
         px = data->RigidBodies[i].x;
         py = data->RigidBodies[i].y;
         pz = data->RigidBodies[i].z;
+
+        pxv = data->RigidBodies[i].qx;
+        pyv = data->RigidBodies[i].qy;
+        pzv = data->RigidBodies[i].qz;
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
@@ -861,12 +865,21 @@ void display() {
     // drawText(cX, 0., 0.4);
     // drawText(cY, 0., 0.2);
     // drawText(cZ, 0., 0.0);
-    glColor3f(0.9, 0.9, 0.1);
 
+    // glColor3f(0.9, 0.0, 0.0);
+    // glPushMatrix();
+    // glTranslatef(-pxv * 1000, pzv * 1000, pyv * 1000);
+
+    // glutSolidSphere(5, 32, 32);
+
+    // glPopMatrix();
+
+    glColor3f(0.9, 0.9, 0.1);
     glPushMatrix();
     glTranslatef(-px * 1000, pz * 1000, py * 1000);
 
     glutSolidSphere(5, 32, 32);
+
     glPopMatrix();
 
     glFlush();
