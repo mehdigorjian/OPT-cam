@@ -837,17 +837,17 @@ void display() {
     const char* c1 = tempX.c_str();
     // convert const char* to char*
     char* c1x = strdup(c1);
-    drawText(c1x, px + 0., pz + 50);
+    drawText(c1x, 300 - 50, 300 - 50);
 
     std::string tempY = "Y = " + std::to_string(py * 1000);
     const char* c2 = tempY.c_str();
     char* c2y = strdup(c2);
-    drawText(c2y, px + 0., pz + 25);
+    drawText(c2y, 300 - 50, 300 - 75);
 
     std::string tempZ = "Z = " + std::to_string(pz * 1000);
     const char* c3 = tempZ.c_str();
     char* c3z = strdup(c3);
-    drawText(c3z, px + 0., pz + 0);
+    drawText(c3z, 300 - 50, 300 - 100);
 
     // char cX[300];
     // gcvt(*px * 1000, coor_accuracy, cX);
