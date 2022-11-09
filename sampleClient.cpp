@@ -66,6 +66,7 @@ char getch();
 static void Timer(int);
 void drawText(char*, float, float);
 void display();
+void resize(int, int);
 
 float px, py, pz;
 int coor_accuracy = 6;
@@ -124,6 +125,7 @@ void glut_main(int argc, char* argv[]) {
     glutCreateWindow("Simulation App");
 
     glutDisplayFunc(display);
+    glutReshapeFunc(resize);
     Timer(0);
 
     glutMainLoop();
@@ -835,17 +837,17 @@ void display() {
     const char* c1 = tempX.c_str();
     // convert const char* to char*
     char* c1x = strdup(c1);
-    drawText(c1x, px + 0., py + 0.4);
+    drawText(c1x, px + 0., pz + 4);
 
     std::string tempY = "Y = " + std::to_string(py * 1000);
     const char* c2 = tempY.c_str();
     char* c2y = strdup(c2);
-    drawText(c2y, px + 0., py + 0.2);
+    drawText(c2y, px + 0., pz + 2);
 
     std::string tempZ = "Z = " + std::to_string(pz * 1000);
     const char* c3 = tempZ.c_str();
     char* c3z = strdup(c3);
-    drawText(c3z, px + 0., py + 0.0);
+    drawText(c3z, px + 0., pz + 0);
 
     // char cX[300];
     // gcvt(*px * 1000, coor_accuracy, cX);
@@ -862,11 +864,21 @@ void display() {
     glColor3f(0.9, 0.9, 0.1);
 
     glPushMatrix();
-    glTranslatef(px, py, pz);
-    glutSolidSphere(0.05, 32, 32);
+    glTranslatef(-px * 1000, pz * 1000, py * 1000);
+
+    glutSolidSphere(5, 32, 32);
     glPopMatrix();
 
     glFlush();
+}
+
+void resize(int w, int h) {
+    glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-300, 300, -300, 300, 300, -300);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 }
 
 void drawText(char* s, float x, float y) {
