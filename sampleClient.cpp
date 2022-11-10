@@ -867,6 +867,14 @@ void display() {
     // drawText(cY, 0., 0.2);
     // drawText(cZ, 0., 0.0);
 
+    // drawing line between the pts
+    glColor3f(0.0, 0.9, 0.0);
+    glLineWidth(.6);
+    glBegin(GL_LINES);
+    glVertex3f(-pxv * 1000, pzv * 1000, pyv * 1000);
+    glVertex3f(-px * 1000, pz * 1000, py * 1000);
+    glEnd();
+
     // drew axes
     glColor3f(0.6, 0.6, 0.6);
     glBegin(GL_LINES);
@@ -876,29 +884,21 @@ void display() {
     glVertex3f(-300, 0, 0);
     glEnd();
 
-    // 1st pt
+    // base pt
+    glColor3f(0.9, 0.9, 0.1);
+    glPushMatrix();
+    glLoadIdentity();
+    glTranslatef(-px * 1000, pz * 1000, py * 1000);
+    glutSolidSphere(15, 32, 32);
+    glPopMatrix();
+
+    // arrow pt
     glColor3f(0.9, 0.0, 0.0);
     glPushMatrix();
     glLoadIdentity();
     glTranslatef(-pxv * 1000, pzv * 1000, pyv * 1000);
     glutSolidSphere(5, 32, 32);
     glPopMatrix();
-
-    // 2nd pt
-    glColor3f(0.9, 0.9, 0.1);
-    glPushMatrix();
-    glLoadIdentity();
-    glTranslatef(-px * 1000, pz * 1000, py * 1000);
-    glutSolidSphere(5, 32, 32);
-    glPopMatrix();
-
-    // drawing line between the pts
-    glColor3f(0.0, 0.9, 0.0);
-    glLineWidth(.6);
-    glBegin(GL_LINES);
-    glVertex3f(-pxv * 1000, pzv * 1000, pyv * 1000);
-    glVertex3f(-px * 1000, pz * 1000, py * 1000);
-    glEnd();
 
     glutSwapBuffers();
 }
