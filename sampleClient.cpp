@@ -33,6 +33,7 @@ Usage [optional]:
 #include <GL/glut.h>
 #include <string.h>
 
+#include <cmath>
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
@@ -866,23 +867,40 @@ void display() {
     // drawText(cY, 0., 0.2);
     // drawText(cZ, 0., 0.0);
 
-    // glColor3f(0.9, 0.0, 0.0);
-    // glPushMatrix();
-    // glTranslatef(-pxv * 1000, pzv * 1000, pyv * 1000);
+    // drew axes
+    glColor3f(0.6, 0.6, 0.6);
+    glBegin(GL_LINES);
+    glVertex3f(0, 300, 0);
+    glVertex3f(0, -300, 0);
+    glVertex3f(300, 0, 0);
+    glVertex3f(-300, 0, 0);
+    glEnd();
 
-    // glutSolidSphere(5, 32, 32);
-
-    // glPopMatrix();
-
-    glColor3f(0.9, 0.9, 0.1);
+    // 1st pt
+    glColor3f(0.9, 0.0, 0.0);
     glPushMatrix();
-    glTranslatef(-px * 1000, pz * 1000, py * 1000);
-
+    glLoadIdentity();
+    glTranslatef(-pxv * 1000, pzv * 1000, pyv * 1000);
     glutSolidSphere(5, 32, 32);
-
     glPopMatrix();
 
-    glFlush();
+    // 2nd pt
+    glColor3f(0.9, 0.9, 0.1);
+    glPushMatrix();
+    glLoadIdentity();
+    glTranslatef(-px * 1000, pz * 1000, py * 1000);
+    glutSolidSphere(5, 32, 32);
+    glPopMatrix();
+
+    // drawing line between the pts
+    glColor3f(0.0, 0.9, 0.0);
+    glLineWidth(.6);
+    glBegin(GL_LINES);
+    glVertex3f(-pxv * 1000, pzv * 1000, pyv * 1000);
+    glVertex3f(-px * 1000, pz * 1000, py * 1000);
+    glEnd();
+
+    glutSwapBuffers();
 }
 
 void resize(int w, int h) {
